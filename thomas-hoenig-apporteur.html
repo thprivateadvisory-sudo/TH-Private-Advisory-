@@ -22,7 +22,7 @@
   --white:      #FFFFFF;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   font-family: 'Inter', sans-serif;
   font-weight: 300;
@@ -208,13 +208,15 @@ nav.scrolled {
 
 .hero-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(60px, 7vw, 96px);
+  font-size: clamp(52px, 7vw, 96px);
   font-weight: 300;
   font-style: italic;
   line-height: 1.0;
   color: var(--white);
   margin-bottom: 10px;
   letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .hero-role {
@@ -234,7 +236,7 @@ nav.scrolled {
 }
 
 .hero-statement {
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(255,255,255,0.5);
   line-height: 1.85;
   max-width: 420px;
@@ -368,12 +370,14 @@ nav.scrolled {
 
 .approche-heading {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(28px, 3vw, 40px);
+  font-size: clamp(26px, 3vw, 40px);
   font-weight: 300;
   color: var(--noir);
   line-height: 1.2;
   position: sticky;
   top: 100px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .approche-content {}
@@ -421,6 +425,8 @@ nav.scrolled {
   font-weight: 400;
   color: var(--noir);
   line-height: 1.3;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .scenario-body p {
@@ -510,7 +516,7 @@ nav.scrolled {
 
 .profil-quote {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(22px, 2.5vw, 30px);
+  font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 300;
   font-style: italic;
   color: var(--noir);
@@ -518,6 +524,8 @@ nav.scrolled {
   margin-bottom: 40px;
   padding-bottom: 40px;
   border-bottom: 1px solid var(--border);
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .profil-text {
@@ -627,11 +635,13 @@ nav.scrolled {
 
 .valeur-item-content h3 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(20px, 2vw, 26px);
+  font-size: clamp(18px, 2vw, 24px);
   font-weight: 400;
   color: var(--white);
   margin-bottom: 14px;
   line-height: 1.3;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .valeur-item-content p {
@@ -650,12 +660,11 @@ nav.scrolled {
 }
 
 .vf-item {
-  padding: 0 40px 0 0;
+  padding-right: 40px;
   border-right: 1px solid rgba(255,255,255,0.07);
-  margin-right: 40px;
 }
 
-.vf-item:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+.vf-item:last-child { border-right: none; padding-right: 0; }
 
 .vf-label {
   font-size: 9.5px;
@@ -696,10 +705,12 @@ nav.scrolled {
 
 .contact-heading {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(32px, 4vw, 54px);
+  font-size: clamp(28px, 4vw, 54px);
   font-weight: 300;
   color: var(--noir);
   line-height: 1.1;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .contact-right-top p {
@@ -922,21 +933,78 @@ footer {
 
 
 /* ────────────────────────────────────────────
-   RESPONSIVE — tablette
+   RESPONSIVE — tablette large (960px)
 ──────────────────────────────────────────── */
 @media (max-width: 960px) {
-  .approche-inner { grid-template-columns: 1fr; gap: 48px; }
+  /* Sections */
+  .approche { padding: 96px 48px; }
+  .profil   { padding: 96px 48px; }
+  .valeur   { padding: 96px 48px; }
+  .contact  { padding: 96px 48px; }
+  footer    { padding: 32px 48px; }
+  .legal    { padding: 0 48px 24px; }
+
+  /* Approche */
+  .approche-inner { grid-template-columns: 1fr; gap: 40px; }
   .approche-heading { position: static; }
-  .profil-inner { grid-template-columns: 260px 1fr; gap: 56px; }
-  .valeur-item { grid-template-columns: 160px 1fr; gap: 40px; }
-  .valeur-item-label { font-size: 32px; }
-  .contact-top { grid-template-columns: 1fr; gap: 48px; }
-  .contact-form-wrap { grid-template-columns: 1fr; gap: 56px; }
+
+  /* Profil */
+  .profil-inner { grid-template-columns: 220px 1fr; gap: 48px; }
+
+  /* Valeur */
+  .valeur-item { grid-template-columns: 120px 1fr; gap: 36px; }
+  .valeur-item-label { font-size: 28px; }
+  .valeur-footer { grid-template-columns: 1fr; gap: 0; }
+  .vf-item {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+  }
+  .vf-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+  /* Contact */
+  .contact-top { grid-template-columns: 1fr; gap: 36px; }
+  .contact-form-wrap { grid-template-columns: 1fr; gap: 48px; }
 }
 
+/* ────────────────────────────────────────────
+   RESPONSIVE — tablette portrait / hero (880px)
+──────────────────────────────────────────── */
+@media (max-width: 880px) {
+  /* Hero passe en 1 colonne */
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+
+  .hero-right {
+    height: 52vw;
+    min-height: 260px;
+    order: -1;
+    position: relative;
+  }
+
+  .hero-right::after {
+    background: linear-gradient(to bottom, var(--noir) 0%, transparent 50%);
+  }
+
+  .hero-left {
+    padding: 48px 48px 72px;
+  }
+
+  .hero-location { margin-bottom: 36px; }
+
+  .hero-name { font-size: clamp(48px, 8vw, 72px); }
+
+  .hero-meta {
+    position: static;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin-top: 44px;
+  }
+}
 
 /* ────────────────────────────────────────────
-   RESPONSIVE — mobile
+   RESPONSIVE — mobile (720px)
 ──────────────────────────────────────────── */
 @media (max-width: 720px) {
   nav { padding: 0 20px; height: 60px; }
@@ -945,70 +1013,46 @@ footer {
   .hamburger { display: flex; }
 
   /* Hero */
-  .hero {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .hero-right {
-    height: 60vw;
-    order: -1;
-    position: relative;
-  }
-
-  .hero-right::after {
-    background: linear-gradient(to bottom, var(--noir) 0%, transparent 40%);
-  }
-
-  .hero-left {
-    padding: 40px 24px 80px;
-  }
-
-  .hero-location { margin-bottom: 36px; }
-
-  .hero-name { font-size: 52px; }
-
-  .hero-meta {
-    position: static;
-    flex-wrap: wrap;
-    gap: 24px;
-    margin-top: 48px;
-  }
+  .hero-right { height: 56vw; min-height: 220px; }
+  .hero-left  { padding: 36px 20px 64px; }
+  .hero-location { margin-bottom: 28px; }
+  .hero-name  { font-size: 48px; }
+  .hero-statement { font-size: 14px; }
 
   /* Approche */
-  .approche { padding: 80px 24px; }
-  .approche-inner { grid-template-columns: 1fr; gap: 40px; }
-  .scenario { grid-template-columns: 1fr; gap: 20px; }
+  .approche { padding: 72px 20px; }
+  .approche-inner { grid-template-columns: 1fr; gap: 36px; }
+  .scenario { grid-template-columns: 1fr; gap: 16px; }
+  .approche-intro { font-size: 15px; }
 
   /* Profil */
-  .profil { padding: 80px 24px; }
-  .profil-inner { grid-template-columns: 1fr; gap: 40px; }
+  .profil { padding: 72px 20px; }
+  .profil-inner { grid-template-columns: 1fr; gap: 36px; }
   .profil-left { position: static; }
-  .profil-img { aspect-ratio: 4/3; max-height: 360px; }
+  .profil-img { aspect-ratio: 4/3; max-height: 320px; }
 
   /* Valeur */
-  .valeur { padding: 80px 24px; }
-  .valeur-item { grid-template-columns: 1fr; gap: 20px; }
-  .valeur-item-label { font-size: 28px; }
-  .valeur-footer { grid-template-columns: 1fr; gap: 32px; }
-  .vf-item { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 32px; }
-  .vf-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .valeur { padding: 72px 20px; }
+  .valeur-item { grid-template-columns: 1fr; gap: 16px; }
+  .valeur-item-label { font-size: 24px; }
 
   /* Contact */
-  .contact { padding: 80px 24px; }
-  .contact-top { grid-template-columns: 1fr; }
-  .contact-form-wrap { grid-template-columns: 1fr; }
+  .contact { padding: 72px 20px; }
   .form-row { grid-template-columns: 1fr; }
   .form-submit { width: 100%; text-align: center; }
 
   /* Footer */
-  footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
-  .legal { padding: 0 24px 24px; flex-direction: column; align-items: center; gap: 8px; }
+  footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .legal { padding: 0 20px 24px; flex-direction: column; align-items: center; gap: 8px; }
 }
 
+/* ────────────────────────────────────────────
+   RESPONSIVE — petit mobile (420px)
+──────────────────────────────────────────── */
 @media (max-width: 420px) {
-  .hero-name { font-size: 42px; }
-  .hero-ctas { flex-direction: column; gap: 20px; }
+  .hero-name { font-size: 38px; }
+  .hero-ctas { flex-direction: column; gap: 18px; }
+  .hero-right { height: 64vw; }
 }
 
 </style>
