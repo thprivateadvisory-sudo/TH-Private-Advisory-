@@ -680,6 +680,73 @@ nav.scrolled {
 
 
 /* ────────────────────────────────────────────
+   RÉSEAU (Cohesif Access)
+──────────────────────────────────────────── */
+.reseau {
+  background: var(--ivory);
+  padding: 96px 72px;
+  border-top: 1px solid var(--border);
+}
+
+.reseau-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.reseau-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 2.5vw, 36px);
+  font-weight: 300;
+  color: var(--noir);
+  line-height: 1.25;
+  margin-bottom: 16px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.reseau-heading em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.reseau-text {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+
+.reseau-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(184,146,74,0.3);
+  padding-bottom: 2px;
+  transition: border-color 0.2s;
+  margin-top: 12px;
+}
+
+.reseau-link:hover { border-color: var(--gold); }
+
+@media (max-width: 880px) {
+  .reseau { padding: 80px 48px; }
+  .reseau-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+
+@media (max-width: 720px) {
+  .reseau { padding: 64px 20px; }
+}
+
+/* ────────────────────────────────────────────
    CONTACT
 ──────────────────────────────────────────── */
 .contact {
@@ -1060,6 +1127,7 @@ footer {
     <ul class="nav-links">
       <li><a href="#approche">Approche</a></li>
       <li><a href="#profil">Profil</a></li>
+      <li><a href="#reseau">Réseau</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="#contact" class="nav-contact">Prendre contact →</a>
@@ -1073,6 +1141,7 @@ footer {
 <div class="mob-menu" id="mob-menu">
   <a href="#approche" class="mob-link">Approche</a>
   <a href="#profil" class="mob-link">Profil</a>
+  <a href="#reseau" class="mob-link">Réseau</a>
   <a href="#contact" class="mob-link">Contact</a>
   <a href="#contact" class="mob-link mob-cta">Prendre contact</a>
 </div>
@@ -1098,8 +1167,8 @@ footer {
     </div>
     <div class="hero-meta">
       <div class="hero-meta-item">
-        <span class="meta-label">Réseau</span>
-        <span class="meta-val">Groupe Cohesif</span>
+        <span class="meta-label">Groupe</span>
+        <span class="meta-val">Cohesif (fondateur)</span>
       </div>
       <div class="hero-meta-item">
         <span class="meta-label">Réponse</span>
@@ -1172,8 +1241,9 @@ footer {
     <div class="profil-right fade d1">
       <p class="profil-pre">À propos</p>
       <p class="profil-quote">« Je ne gère pas un portefeuille. Je gère des relations — et c'est une différence fondamentale. »</p>
-      <p class="profil-text">Mon activité d'apporteur d'affaires s'est construite dans le prolongement de dix ans passés dans l'immobilier privé et le foncier. J'ai travaillé avec des promoteurs régionaux, des family offices parisiens, et des particuliers fortunés — <strong>souvent les trois sur un même dossier.</strong></p>
+      <p class="profil-text">Mon parcours dans l'immobilier privé et le foncier m'a conduit à travailler avec des promoteurs régionaux, des family offices parisiens, et des particuliers fortunés — <strong>souvent les trois sur un même dossier.</strong> C'est cette expérience de terrain qui m'a poussé à fonder le Groupe Cohesif et à structurer mon propre réseau d'apport d'affaires.</p>
       <p class="profil-text">Ce qui me différencie : je ne prends pas des dizaines de dossiers en parallèle. Chaque opportunité que j'accepte de porter reçoit une attention exclusive, du premier échange jusqu'à la signature. Mon réseau est sélectif, pas extensif — et c'est précisément pour ça qu'il fonctionne.</p>
+      <p class="profil-text">Cette rigueur, je l'ai aussi mise au service des apporteurs d'affaires qui débutent. Via <strong><a href="https://cohesifaccess.fr" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,146,74,0.3);transition:border-color 0.2s;">Cohesif Access</a></strong>, la branche dédiée du groupe, je leur transmets les méthodes, le réseau et les outils que j'ai mis des années à construire.</p>
       <div class="profil-expertise">
         <p class="exp-title">Domaines d'expertise</p>
         <div class="exp-list">
@@ -1233,12 +1303,31 @@ footer {
       </div>
       <div class="vf-item">
         <p class="vf-label">Groupe</p>
-        <p class="vf-val">Groupe Cohesif · 200 rue de la Croix-Nivert, Paris 75015</p>
+        <p class="vf-val">Groupe Cohesif (fondateur) · Paris 75015</p>
       </div>
       <div class="vf-item">
         <p class="vf-label">Couverture</p>
         <p class="vf-val">Paris & Île-de-France · national sur introduction</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSEAU -->
+<section class="reseau" id="reseau">
+  <div class="reseau-inner">
+    <div class="fade">
+      <h2 class="reseau-heading">Vous souhaitez devenir <em>apporteur d'affaires</em> ?</h2>
+    </div>
+    <div class="fade d1">
+      <p class="reseau-text">L'expérience que j'ai accumulée en structurant mes propres transactions m'a conduit à créer <strong style="color:var(--charcoal);font-weight:400;">Cohesif Access</strong> — la branche du Groupe Cohesif dédiée à l'accompagnement des nouveaux apporteurs d'affaires en immobilier.</p>
+      <p class="reseau-text">Formation, réseau, outils juridiques, accès à mes partenaires : ce qu'il m'a fallu des années à construire, rendu accessible dès le départ.</p>
+      <a href="https://cohesifaccess.fr" target="_blank" rel="noopener" class="reseau-link">
+        Découvrir Cohesif Access
+        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M2 7h10M8 3l4 4-4 4"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
@@ -1291,6 +1380,7 @@ footer {
               <option>Je détiens une opportunité immobilière</option>
               <option>Je représente une structure (cabinet, family office, promoteur)</option>
               <option>Je cherche un bien off-market</option>
+              <option>Je souhaite devenir apporteur d'affaires</option>
               <option>Autre demande</option>
             </select>
           </div>
@@ -1326,7 +1416,7 @@ footer {
 <footer>
   <img src="data:image/png;base64,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" alt="TH Private Advisory" class="footer-logo">
   <p class="footer-copy">© 2026 TH Private Advisory — Thomas Hoenig</p>
-  <p class="footer-group">Membre de <a href="https://cohesifaccess.fr" target="_blank" rel="noopener">Groupe Cohesif</a></p>
+  <p class="footer-group">Fondateur du <a href="https://cohesifaccess.fr" target="_blank" rel="noopener">Groupe Cohesif</a></p>
 </footer>
 <div class="legal">
   <span>Activité d'apport d'affaires exercée en nom propre par Thomas Hoenig</span>
