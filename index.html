@@ -904,6 +904,31 @@ nav.scrolled {
 }
 
 .form-submit:hover { background: var(--noir); border-color: var(--noir); color: var(--white); }
+.form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.form-error {
+  display: none;
+  font-size: 11.5px;
+  color: #c0392b;
+  margin-top: 2px;
+}
+
+.form-group.invalid .form-input,
+.form-group.invalid .form-select,
+.form-group.invalid .form-textarea {
+  border-color: #c0392b;
+}
+
+.form-group.invalid .form-error { display: block; }
+
+.form-status {
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.form-status.success { color: #27ae60; }
+.form-status.error { color: #c0392b; }
 
 .contact-info-col {
   padding-top: 44px;
@@ -1403,41 +1428,48 @@ footer {
     <div class="contact-form-wrap fade">
       <div>
         <p class="form-section-label">Formulaire de contact</p>
-        <form class="contact-form" onsubmit="return false;">
+        <form class="contact-form" id="contactForm" novalidate>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Prénom</label>
-              <input type="text" class="form-input" placeholder="Jean">
+              <label class="form-label" for="prenom">Prénom</label>
+              <input type="text" class="form-input" id="prenom" name="prenom" placeholder="Jean" required>
+              <span class="form-error">Veuillez entrer votre prénom.</span>
             </div>
             <div class="form-group">
-              <label class="form-label">Nom</label>
-              <input type="text" class="form-input" placeholder="Dupont">
+              <label class="form-label" for="nom">Nom</label>
+              <input type="text" class="form-input" id="nom" name="nom" placeholder="Dupont" required>
+              <span class="form-error">Veuillez entrer votre nom.</span>
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="jean.dupont@email.com">
+            <label class="form-label" for="email">Email</label>
+            <input type="email" class="form-input" id="email" name="email" placeholder="jean.dupont@email.com" required>
+            <span class="form-error">Veuillez entrer une adresse email valide.</span>
           </div>
           <div class="form-group">
-            <label class="form-label">Téléphone</label>
-            <input type="tel" class="form-input" placeholder="+33 6 00 00 00 00">
+            <label class="form-label" for="telephone">Téléphone</label>
+            <input type="tel" class="form-input" id="telephone" name="telephone" placeholder="+33 6 00 00 00 00">
+            <span class="form-error">Veuillez entrer un numéro de téléphone valide.</span>
           </div>
           <div class="form-group">
-            <label class="form-label">Objet</label>
-            <select class="form-select">
+            <label class="form-label" for="objet">Objet</label>
+            <select class="form-select" id="objet" name="objet" required>
               <option value="">Sélectionner…</option>
-              <option>Je détiens une opportunité immobilière</option>
-              <option>Je représente une structure (cabinet, family office, promoteur)</option>
-              <option>Je cherche un bien off-market</option>
-              <option>Je souhaite devenir apporteur d'affaires</option>
-              <option>Autre demande</option>
+              <option value="opportunite">Je détiens une opportunité immobilière</option>
+              <option value="structure">Je représente une structure (cabinet, family office, promoteur)</option>
+              <option value="off-market">Je cherche un bien off-market</option>
+              <option value="apporteur">Je souhaite devenir apporteur d'affaires</option>
+              <option value="autre">Autre demande</option>
             </select>
+            <span class="form-error">Veuillez sélectionner un objet.</span>
           </div>
           <div class="form-group">
-            <label class="form-label">Message</label>
-            <textarea class="form-textarea" placeholder="Décrivez brièvement votre situation…"></textarea>
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Décrivez brièvement votre situation…" required></textarea>
+            <span class="form-error">Veuillez entrer votre message.</span>
           </div>
           <button class="form-submit" type="submit">Envoyer le message</button>
+          <div class="form-status" id="formStatus"></div>
         </form>
       </div>
       <div class="contact-info-col">
@@ -1528,10 +1560,91 @@ const obs = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 
-// Form
-document.querySelector('.form-submit').addEventListener('click', () => {
-  alert('Merci. Thomas Hoenig vous répondra sous 48h.');
-});
+// Form validation
+(function() {
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+
+  function validateField(group) {
+    const input = group.querySelector('.form-input, .form-select, .form-textarea');
+    if (!input) return true;
+
+    let valid = true;
+
+    if (input.hasAttribute('required') && !input.value.trim()) {
+      valid = false;
+    } else if (input.type === 'email' && input.value.trim()) {
+      valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+    } else if (input.type === 'tel' && input.value.trim()) {
+      valid = /^[+\d][\d\s\-().]{6,}$/.test(input.value.trim());
+    }
+
+    group.classList.toggle('invalid', !valid);
+    return valid;
+  }
+
+  form.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(function(input) {
+    input.addEventListener('blur', function() {
+      validateField(this.closest('.form-group'));
+    });
+    input.addEventListener('input', function() {
+      var group = this.closest('.form-group');
+      if (group.classList.contains('invalid')) validateField(group);
+    });
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    status.textContent = '';
+    status.className = 'form-status';
+
+    var groups = form.querySelectorAll('.form-group');
+    var allValid = true;
+    groups.forEach(function(group) {
+      if (!validateField(group)) allValid = false;
+    });
+
+    if (!allValid) {
+      var firstInvalid = form.querySelector('.form-group.invalid .form-input, .form-group.invalid .form-select, .form-group.invalid .form-textarea');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    var btn = form.querySelector('.form-submit');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+
+    var data = {
+      prenom: form.prenom.value.trim(),
+      nom: form.nom.value.trim(),
+      email: form.email.value.trim(),
+      telephone: form.telephone.value.trim(),
+      objet: form.objet.value,
+      message: form.message.value.trim()
+    };
+
+    var subject = encodeURIComponent('Contact TH Private Advisory – ' + data.prenom + ' ' + data.nom);
+    var body = encodeURIComponent(
+      'Prénom : ' + data.prenom + '\n' +
+      'Nom : ' + data.nom + '\n' +
+      'Email : ' + data.email + '\n' +
+      'Téléphone : ' + (data.telephone || 'Non renseigné') + '\n' +
+      'Objet : ' + data.objet + '\n\n' +
+      'Message :\n' + data.message
+    );
+
+    window.location.href = 'mailto:contact@thprivateadvisory.com?subject=' + subject + '&body=' + body;
+
+    setTimeout(function() {
+      status.textContent = 'Merci. Votre client email va s\'ouvrir. Thomas Hoenig vous répondra sous 48h.';
+      status.className = 'form-status success';
+      btn.disabled = false;
+      btn.textContent = 'Envoyer le message';
+      form.reset();
+      form.querySelectorAll('.form-group').forEach(function(g) { g.classList.remove('invalid'); });
+    }, 1000);
+  });
+})();
 </script>
 
 </body>
