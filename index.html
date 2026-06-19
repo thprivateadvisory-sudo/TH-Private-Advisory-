@@ -60,7 +60,7 @@ nav.scrolled {
   border-color: rgba(255,255,255,0.06);
 }
 
-.nav-logo { height: 34px; width: auto; display: block; filter: brightness(0) invert(1); }
+.nav-logo { height: 42px; width: auto; display: block; filter: brightness(0) invert(1); cursor: pointer; }
 
 .nav-right {
   display: flex;
@@ -977,8 +977,7 @@ footer {
   gap: 16px;
 }
 
-.footer-logo { height: 64px; opacity: 0.65; cursor: pointer; transition: opacity 0.2s; }
-.footer-logo:hover { opacity: 1; }
+.footer-logo { height: 44px; opacity: 0.65; }
 .footer-copy { font-size: 11.5px; color: rgba(255,255,255,0.2); }
 .footer-group { font-size: 11.5px; color: rgba(255,255,255,0.2); }
 .footer-group a { color: rgba(184,146,74,0.6); text-decoration: none; transition: color 0.2s; }
@@ -1147,7 +1146,7 @@ footer {
 ──────────────────────────────────────────── */
 @media (max-width: 720px) {
   nav { padding: 0 20px; height: 60px; }
-  .nav-logo { height: 28px; }
+  .nav-logo { height: 36px; }
   .nav-right { display: none; }
   .hamburger { display: flex; }
 
@@ -1643,8 +1642,8 @@ document.querySelectorAll('.fade').forEach(el => obs.observe(el));
   });
 })();
 
-// Footer logo scroll to top
-document.querySelector('.footer-logo').addEventListener('click', function() {
+// Nav logo scroll to top
+document.querySelector('.nav-logo').addEventListener('click', function() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
