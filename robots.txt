@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://thprivateadvisory.fr/sitemap.xml
+
+Host: https://thprivateadvisory.fr
