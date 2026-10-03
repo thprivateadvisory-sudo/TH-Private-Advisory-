@@ -549,6 +549,40 @@ a { color: inherit; }
 .step h4 { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--noir); margin-bottom: 10px; line-height: 1.2; }
 .step p { font-size: 14px; color: var(--muted); line-height: 1.8; }
 
+/* Vidéo du parcours, à côté des étapes */
+.process {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+  gap: clamp(48px, 6vw, 96px); align-items: center;
+}
+.process .steps { grid-template-columns: 1fr; }
+.process .step, .process .step + .step {
+  display: grid; grid-template-columns: 72px 1fr; column-gap: 8px;
+  padding: 28px 0 20px; border-left: none;
+}
+.process .step + .step { border-top: 1px solid var(--border); }
+.process .step::before { grid-row: span 2; margin-bottom: 0; }
+.process-film { margin: 0; }
+.film-frame {
+  position: relative; aspect-ratio: 9 / 16; overflow: hidden;
+  background: var(--noir); border-radius: 22px;
+  border: 1px solid rgba(184,146,74,.35);
+  box-shadow: 0 30px 60px -30px rgba(13,12,10,.55);
+}
+.film-frame video { width: 100%; height: 100%; object-fit: cover; }
+.film-toggle {
+  position: absolute; right: 12px; bottom: 12px;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.25); background: rgba(13,12,10,.45);
+  color: var(--white); cursor: pointer; display: none; place-items: center;
+  transition: border-color .3s, background .3s;
+}
+.film-toggle:hover { border-color: var(--gold); background: rgba(13,12,10,.7); }
+.film-toggle.show { display: grid; }
+.process-film figcaption {
+  margin-top: 14px; text-align: center;
+  font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--muted);
+}
+
 /* PROFIL */
 .profil { background: var(--ivory); }
 .profil-inner {
@@ -889,6 +923,8 @@ a { color: inherit; }
   .scroll-cue { display: none; }
   .section-head { grid-template-columns: 1fr; align-items: start; }
   .scenarios { grid-template-columns: 1fr; }
+  .process { grid-template-columns: 1fr; }
+  .process-film { width: 100%; max-width: 340px; margin: 0 auto; }
   .profil-inner { grid-template-columns: 1fr; }
   .profil-left { position: static; max-width: 460px; }
   .faq-inner { grid-template-columns: 1fr; }
@@ -913,6 +949,7 @@ a { color: inherit; }
   .steps { grid-template-columns: 1fr; }
   .step, .step + .step { padding: 28px 0 12px; border-left: none; }
   .step + .step { border-top: 1px solid var(--border); }
+  .process .step, .process .step + .step { grid-template-columns: 56px 1fr; }
   .exp-list { grid-template-columns: 1fr; }
   .exp-list li:nth-child(odd), .exp-list li:nth-child(even) { padding: 18px 0; border-left: none; }
   .valeur-item { grid-template-columns: 1fr; gap: 14px; }
@@ -1050,25 +1087,39 @@ a { color: inherit; }
     </div>
 
     <div class="process">
-      <h3 class="process-title reveal">Du premier échange à la signature</h3>
-      <ol class="steps">
-        <li class="step reveal">
-          <h4>Échange confidentiel</h4>
-          <p>Vous exposez votre situation, sans engagement. Je vous réponds personnellement sous 48h ouvrées.</p>
-        </li>
-        <li class="step reveal d1">
-          <h4>Convention écrite</h4>
-          <p>Avant toute action, les conditions de rémunération sont fixées par écrit. Aucune ambiguïté.</p>
-        </li>
-        <li class="step reveal d2">
-          <h4>Qualification &amp; introduction</h4>
-          <p>Je qualifie le dossier et organise la mise en relation, avec l'accord préalable des deux parties.</p>
-        </li>
-        <li class="step reveal d3">
-          <h4>Signature</h4>
-          <p>Un suivi exclusif jusqu'à la signature. La rémunération n'intervient qu'à la réalisation.</p>
-        </li>
-      </ol>
+      <div class="process-main">
+        <h3 class="process-title reveal">Du premier échange à la signature</h3>
+        <ol class="steps">
+          <li class="step reveal">
+            <h4>Échange confidentiel</h4>
+            <p>Vous exposez votre situation, sans engagement. Je vous réponds personnellement sous 48h ouvrées.</p>
+          </li>
+          <li class="step reveal d1">
+            <h4>Convention écrite</h4>
+            <p>Avant toute action, les conditions de rémunération sont fixées par écrit. Aucune ambiguïté.</p>
+          </li>
+          <li class="step reveal d2">
+            <h4>Qualification &amp; introduction</h4>
+            <p>Je qualifie le dossier et organise la mise en relation, avec l'accord préalable des deux parties.</p>
+          </li>
+          <li class="step reveal d3">
+            <h4>Signature</h4>
+            <p>Un suivi exclusif jusqu'à la signature. La rémunération n'intervient qu'à la réalisation.</p>
+          </li>
+        </ol>
+      </div>
+      <figure class="process-film reveal d2">
+        <div class="film-frame">
+          <video id="process-video" muted loop playsinline preload="none" aria-hidden="true"
+            poster="/assets/img/parcours-off-market-poster.jpg"
+            data-sources="/assets/video/parcours-off-market.mp4"
+            data-sources-mobile="/assets/video/parcours-off-market-540.mp4"></video>
+          <button class="film-toggle" id="process-toggle" type="button" aria-label="Mettre la vidéo en pause">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2" y="1" width="2.5" height="10"/><rect x="7.5" y="1" width="2.5" height="10"/></svg>
+          </button>
+        </div>
+        <figcaption>Illustration du parcours d'une vente discrète</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -1528,6 +1579,36 @@ a { color: inherit; }
       });
     }, { rootMargin: '300px 0px' });
     vObs.observe(interVideo);
+
+    // Vidéo du parcours : chargée à l'approche, en pause hors écran ou à la demande
+    var procVideo = document.getElementById('process-video');
+    var procToggle = document.getElementById('process-toggle');
+    var procLoaded = false, procPaused = false;
+    var pObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && !procLoaded) {
+          procLoaded = true;
+          loadVideo(procVideo, function () { procToggle.classList.add('show'); });
+        }
+        if (procLoaded && procVideo.classList.contains('ready') && !procPaused) {
+          if (e.isIntersecting) { var p = procVideo.play(); if (p && p.catch) p.catch(function () {}); }
+          else procVideo.pause();
+        }
+      });
+    }, { rootMargin: '300px 0px' });
+    pObs.observe(procVideo);
+    procToggle.addEventListener('click', function () {
+      procPaused = !procVideo.paused;
+      if (procPaused) {
+        procVideo.pause();
+        procToggle.setAttribute('aria-label', 'Lire la vidéo');
+        procToggle.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 1.5v9l7-4.5z"/></svg>';
+      } else {
+        procVideo.play();
+        procToggle.setAttribute('aria-label', 'Mettre la vidéo en pause');
+        procToggle.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2" y="1" width="2.5" height="10"/><rect x="7.5" y="1" width="2.5" height="10"/></svg>';
+      }
+    });
     // Léger effet de parallaxe
     if (!reduceMotion) {
       var interSection = interVideo.parentElement;
